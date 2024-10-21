@@ -1,3 +1,4 @@
+<!-- vale off-->
 <!-- markdownlint-disable -->
 <br />
 <div align="center">
@@ -17,7 +18,7 @@
   </p>
   <p>
     <strong>
-      Allow <a href="https://github.com/nvim-neorocks/rocks.nvim/">rocks.nvim</a> to help configure your plugins!
+      Permettete a <a href="https://github.com/nvim-neorocks/rocks.nvim/">rocks.nvim</a> di aiutarvi a configurare i vostri plugin!
     </strong>
   </p>
 </div>
@@ -25,19 +26,19 @@
 
 [![LuaRocks][luarocks-shield]][luarocks-url]
 
-## :star2: Summary
+## :star2: Sommario
 
-`rocks-config.nvim` extends [`rocks.nvim`](https://github.com/nvim-neorocks/rocks-config.nvim)
-with the ability to configure your plugins.
+`rocks-config.nvim` estende [`rocks.nvim`](https://github.com/nvim-neorocks/rocks-config.nvim)
+con la possibilità di configurare i vostri plugin.
 
-## :hammer: Installation
+## :hammer: Installazione
 
-Simply run `:Rocks install rocks-config.nvim`,
-and you are good to go!
+È sufficiente eseguire `:Rocks install rocks-config.nvim`,
+e siete pronti a partire!
 
-## :books: Usage
+## :books: Uso
 
-With this extension, you can add a `[config]` table to your `rocks.toml`,
+Con questa estensione, è possibile aggiungere una tabella `[config]` al proprio `rocks.toml`,
 for example:
 
 ```toml
@@ -50,13 +51,13 @@ plugins_dir = "plugins/"
 auto_setup = false
 ```
 
-### Options
+### Opzioni
 
 #### `plugins_dir`
 
-The subdirectory (relative to `nvim/lua`, default: `plugins`)
-to search for plugin configs. You can add a `lua/plugins/` directory
-to your `nvim` config, with a lua script for each plugin.
+La sottodirectory (relativa a `nvim/lua`, predefinita: `plugins`)
+per cercare le configurazioni dei plugin. È possibile aggiungere una cartella `lua/plugins/`
+alla configurazione di `nvim`, con uno script lua per ogni plugin.
 
 ```sh
 ── nvim
@@ -67,36 +68,36 @@ to your `nvim` config, with a lua script for each plugin.
   ├── init.lua
 ```
 
-Upon startup, for each plugin in the `rocks.toml`'s `[plugins]`
-table, this module will search for a matching config module in
-and load it if one is found.
+All'avvio, per ogni plugin presente nel file `rocks.toml` `[plugins]`
+questo modulo cercherà un modulo di configurazione corrispondente in
+e caricarlo se ne viene trovato uno.
 
 > [!NOTE]
 >
-> Possible config file names are:
+> I nomi dei file di configurazione possibili sono:
 >
-> - The plugin's name (as long as it is a valid module name).
-> - The plugin's name with the `.[n]vim` suffix removed[^1].
-> - The plugin's name with the `[n]vim-` prefix removed[^2].
-> - The plugin's name with `"-"` substituted for `"."`[^3].
+> - Il nome del plugin (purché sia un nome di modulo valido).
+> - Il nome del plugin con il suffisso `.[n]vim` rimosso[^1].
+> - Il nome del plugin con il prefisso `[n]vim-` rimosso[^2].
+> - Il nome del plugin con `"-"` sostituito da `"."`[^3].
 
-[^1]: For example, a config file for a plugin called `foo.nvim` could be named `foo.lua`.
-[^2]: For example, a config file for a plugin called `nvim-foo` could be named `foo.lua`.
-[^3]: For example, a config file for a plugin called `foo.bar` could be named `foo-bar.lua`.
+[^1]: Per esempio, un file di configurazione per un plugin chiamato `foo.nvim` potrebbe essere chiamato `foo.lua`.
+[^2]: Per esempio, un file di configurazione per un plugin chiamato `nvim-foo` potrebbe essere chiamato `foo.lua`.
+[^3]: Per esempio, un file di configurazione per un plugin chiamato `foo.bar` potrebbe essere chiamato `foo-bar.lua`.
 
-If you uninstall a plugin, you can leave its config (e.g. in case
-you would like to reinstall it later), and it will not cause any
-problems.
+Se si disinstalla un plugin, è possibile lasciare la sua configurazione (ad esempio nel caso in cui
+si desidera reinstallarlo in un secondo momento), e non causerà alcun
+problema.
 
 #### `<plugin>.config` - Adding basic configurations to rocks.toml
 
-Many Neovim plugins require a call to a `setup` function,
-which typically takes a configuration table.
-If none of the configuration options are lua functions,
-you can add the config to your rocks.toml, and this plugin
-will automatically call `setup` with the plugin's options.
+Molti plugin di Neovim richiedono una chiamata a una funzione `setup`,
+che in genere prende una tabella di configurazione.
+Se nessuna delle opzioni di configurazione è una funzione lua,
+è possibile aggiungere la configurazione a rocks.toml e questo plugin
+chiamerà automaticamente `setup` con le opzioni del plugin.
 
-For example, the following lua configuration:
+Ad esempio, la seguente configurazione lua:
 
 ```lua
 -- lua/plugins/lualine.lua
@@ -108,7 +109,7 @@ require('lualine').setup {
 }
 ```
 
-...can also be configured via rocks.toml:
+... può essere configurato anche tramite rocks.toml:
 
 ```toml
 # rocks.toml
@@ -116,59 +117,59 @@ require('lualine').setup {
 options = { icons_enabled = true, theme = "auto" }
 ```
 
-The `config` field can also take on the form of a string pointing to a Lua module (if you would
-like to execute a one-off script in a different location to the global `plugins_dir` option):
+Il campo `config' può anche assumere la forma di una stringa che punta a un modulo Lua (se si vuole
+come eseguire uno script una tantum in una posizione diversa dall'opzione globale `plugins_dir`):
 
 ```toml
 # rocks.toml
 [plugins.lualine]
-config = "plugins.statusline" # Will execute `.config/nvim/lua/plugins/statusline.lua`
+config = "plugins.statusline" # Eseguirà `.config/nvim/lua/plugins/statusline.lua
 ```
 
 #### `auto_setup`
 
-Some plugins that don't work without a `setup` call,
-even if you are happy with the default options.
-`rocks-config.nvim` provides a hack to work around this
-with the `auto_setup` option (disabled by default).
-If enabled, and no config is found for an installed plugin,
-this module will attempt to call `require('<plugin-name>').setup()`
+Alcuni plugin che non funzionano senza una chiamata a `setup`,
+anche se si è soddisfatti delle opzioni predefinite.
+`rocks-config.nvim` fornisce un hack per aggirare questo problema
+con l'opzione `auto_setup` (disabilitata per impostazione predefinita).
+Se abilitato, non viene trovata alcuna configurazione per un plugin installato,
+questo modulo tenterà di chiamare `require('<nome-plugin>').setup()`
 for you.
 
 > [!WARNING]
 >
-> Enabling `auto_setup` could lead to unexpected behaviour.
-> For example, if a plugin that doesn't need a `setup` call
-> has configuration/initialization logic in its main module,
-> it will be invoked with the call to `require`,
-> potentially resulting in more eager initialization than necessary.
+> L'abilitazione di `auto_setup` potrebbe portare a comportamenti inaspettati.
+> Per esempio, se un plugin che non ha bisogno di una chiamata `setup`
+> ha una logica di configurazione/inizializzazione nel suo modulo principale,
+> sarà invocato con la chiamata a `require`,
+> potenzialmente si ottiene un'inizializzazione più avida del necessario.
 
-You can also enable/disable `auto_setup` for individual plugins
-by setting `config = true` or `config = false`, respectively.
+È anche possibile attivare/disattivare `auto_setup` per singoli plugin
+impostando rispettivamente `config = true` o `config = false`.
 
-### Initialization order
+### Ordine di inizializzazione
 
-rocks.nvim makes use of Neovim's built-in [initialization sequence](https://neovim.io/doc/user/starting.html#initialization),
-and provides a hook that rocks-config.nvim uses to load configs
-*before* any plugin scripts are sourced[^4].
+rocks.nvim utilizza la [sequenza di inizializzazione] integrata di Neovim (https://neovim.io/doc/user/starting.html#initialization),
+e fornisce un gancio che rocks-config.nvim utilizza per caricare le configurazioni
+*prima* che gli script dei plugin siano originati[^4].
 
-[^4]: All plugins' lua APIs are available as soon as the snippet
-from the rocks.nvim installer has been executed.
+[^4]: Le API lua di tutti i plugin sono disponibili non appena lo snippet
+dal programma di installazione rocks.nvim è stato eseguito.
 
-If you need to source a plugin's scripts eagerly (for example,
-to load colorschemes), you can set the plugin's `opt = true` in
-rocks.toml, and then load it with `vim.cmd.Rocks({"packadd", "<rock-name>"})` [^5]
-or `require("rocks").packadd("<rock-name")`[^6].
+Se si ha bisogno di reperire gli script di un plugin in modo avventato (ad esempio,
+per caricare i temi colore), è possibile impostare il plugin `opt = true` in
+rocks.toml, e poi caricarlo con `vim.cmd.Rocks({"packadd", "<nome-rock>"})` [^5]
 
-[^5]: See `:h rocks.commands`
-[^6]: See `:h rocks.lua`
 
-## Plugin Bundles
+[^5]: Vedi `:h rocks.commands`
+[^6]: Vedi `:h rocks.lua`
 
-Apart from configuration on a per-plugin basis, it's also possible to create collections of plugins
+## Pacchetti di plugin
+
+Oltre alla configurazione per singolo plugin, è anche possibile creare collezioni di plugin
 (called bundles) and configure them all in one go.
 
-Below is an example that bundles LSP-related plugins together:
+Di seguito è riportato un esempio che raggruppa i plugin relativi all'LSP:
 
 ```toml
 [plugins]
@@ -186,14 +187,14 @@ items = [
 ]
 ```
 
-Now, instead of invoking each individual configuration file for each plugin separately,
-`rocks-config.nvim` will instead look for a `lua/plugins/lsp.lua` file which it will execute.
-You can then place your setup code for *all three* plugins in the same file.
+Ora, invece di richiamare ogni singolo file di configurazione per ogni plugin separatamente,
+`rocks-config.nvim` cercherà invece un file `lua/plugins/lsp.lua` che verrà eseguito.
+
 
 #### `config`
 
-Similarly to regular plugins, a `config` field can be applied to a bundle. This `config`
-field can only be a string pointing to an alternative Lua module to execute. Example:
+Analogamente ai normali plugin, un campo `config` può essere applicato a un bundle. Questo campo `config`
+può essere solo una stringa che punta a un modulo Lua alternativo da eseguire. Esempio:
 
 ```toml
 [bundles.lsp] # Create a bundle called `lsp`
@@ -205,32 +206,32 @@ items = [
 config = "bundles.language_support"
 ```
 
-Instead of looking inside `lua/plugins/lsp.lua`, `rocks-config.nvim` will now search for
-a file in `lua/bundles/language_support.lua`.
+Invece di cercare all'interno di `lua/plugins/lsp.lua`, `rocks-config.nvim` ora cercherà
+un file in `lua/bundles/language_support.lua`.
 
 #### `load_opt_plugins`
 
-By default, `rocks-config.nvim` will not load configs for
+Per impostazione predefinita, `rocks-config.nvim` non carica le configurazioni di
 
-- plugins with `opt = true`
-- or plugins that have been marked as `opt`, e.g. by rocks-lazy.nvim.
+- plugin con `opt = true
+- o i plugin che sono stati contrassegnati come `opt', ad esempio da rocks-lazy.nvim.
 
-It will also not load bundles that contain a plugin that matches the above criteria.
+Inoltre, non caricherà i bundle che contengono un plugin che corrisponde ai criteri di cui sopra.
 
-You can either override this behaviour by setting `load_opt_plugins = true`,
-or you can load the config for a plugin using the `configure(name)` function:
+È possibile sovrascrivere questo comportamento impostando `load_opt_plugins = true`,
+oppure si può caricare la configurazione di un plugin usando la funzione `configure(name)`:
 
 ```lua
 require("rocks-config").configure("foo.nvim")
 vim.cmd.packadd("foo.nvim")
 ```
 
-## Neovim configuration
+## Configurazione Neovim
 
-You can also use `rocks-config.nvim` to set various Neovim options
-in your rocks.toml.
+Si può anche usare `rocks-config.nvim` per impostare varie opzioni di Neovim
+nel vostro rocks.toml.
 
-Here is an example:
+Ecco un esempio:
 
 ```toml
 [config]
@@ -244,9 +245,9 @@ completeopt = 'menu,menuone,noinsert,fuzzy,preview,noselect'
 # ...
 ```
 
-## :book: License
+## :book: Licenza
 
-`rocks-config.nvim` is licensed under [GPLv3](./LICENSE).
+`rocks-config.nvim` è rilasciato sotto licenza [GPLv3](./LICENSE).
 
 [luarocks-shield]: https://img.shields.io/luarocks/v/neorocks/rocks-config.nvim?logo=lua&color=purple&style=for-the-badge
 [luarocks-url]: https://luarocks.org/modules/neorocks/rocks-config.nvim
